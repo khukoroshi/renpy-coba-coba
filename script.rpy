@@ -2,81 +2,28 @@
 
 # # Deklarasikan gambar di bawah line ini, menggunakan pernyataan image.
 # # cnth. image eileen happy = "eileen_happy.png"
-# image myroom = "images/room/my_room3.png"
-# image hoshi normal2 = "images/hoshi/hoshi_school_embarrassed2.png"
-# image hoshi normal1 = "images/hoshi/hoshi_school_embarrassed1.png"
 
+# 1. Deklarasi Karakter dan Gambar Latar Belakang
+define h = Character(_('Hoshiko'), color="#C4A484")
+define w = Character(_('Wisteria'), color='#8f00ff')
 
-# # Deklarasikan karakter yang digunakan di game.
-# define e = Character('Eileen', color="#c8ffc8")
-# define h = Character('Hoshi', color="991111")
-
-
-
-# transform testing:
-#     xalign 0.75
-#     yalign 1.0
-
-# # Game dimulai disini.
-# label start:
-
-#     scene myroom with dissolve
-#     e "Kamu telah membuat game Ren'Py baru."
-
-#     e "Setelah kamu menambahkan cerita, gambar, dan musik, kamu bisa merilis nya ke dunia!"
-
-#     show hoshi normal1 at testing
-
-#     h "testing"
-
-#     return
-
-
-
-
-
-# Hi there! This is the Ren'Py tutorial game. It's actually a fairly bad
-# example of Ren'Py programming style - the examples we present in the game
-# itself are good, but to make them easy to present we wind up doing
-# some non-standard high-level things.
-#
-# So feel free to poke around, but if you're really looking for an example
-# of good Ren'Py programming style, consider checking out The Question
-# instead.
-
-# Declare the characters.
-define e = Character(_('Hoshi'), color="#c8ffc8")
 
 init python:
-
-    # A list of section and tutorial objects.
-    tutorials = [ ]
+    # Kontainer utama untuk menyimpan daftar menu
+    explorers = [ ]
 
     class Section(object):
-        """
-        Represents a section of the tutorial menu.
-
-        `title`
-            The title of the section. This should be a translatable string.
-        """
-
         def __init__(self, title):
             self.kind = "section"
             self.title = title
+            explorers.append(self)
 
-            tutorials.append(self)
-
-
-    class Tutorial(object):
-        """
-        Represents a label that we can jump to.
-        """
-
+    class Explorasi(object):
         def __init__(self, label, title, move=True):
-            self.kind = "tutorial"
+            self.kind = "explorasi"
             self.label = label
             self.title = title
-
+            
             if move and (move != "after"):
                 self.move_before = True
             else:
@@ -87,54 +34,30 @@ init python:
             else:
                 self.move_after = False
 
-            tutorials.append(self)
+            explorers.append(self)
 
+    # 2. Menyusun Isi Menu Sesuai Gambar (Bahasa Indonesia)
+    Section(_("Mulai Cepat"))
 
-    Section(_("Quickstart"))
+    Explorasi("tutorial_playing", _("Pengalaman Pemain"))
+    Explorasi("tutorial_create", _("Membuat Game Baru"))
+    Explorasi("tutorial_dialogue", _("Menuliskan Dialog"))
+    Explorasi("tutorial_images", _("Menambahkan Gambar"))
+    Explorasi("tutorial_simple_positions", _("Memposisikan Gambar"))
+    Explorasi("tutorial_transitions", _("Transisi"))
+    Explorasi("tutorial_music", _("Musik dan Efek Suara"))
+    Explorasi("tutorial_menus", _("Pilihan dan Python"))
+    Explorasi("tutorial_input", _("Input dan Interpolation"))
+    Explorasi("tutorial_video", _("Pemutan Video"))
 
-    Tutorial("tutorial_playing", _("Player Experience"))
-    Tutorial("tutorial_create", _("Creating a New Game"))
-    Tutorial("tutorial_dialogue", _("Writing Dialogue"))
-    Tutorial("tutorial_images", _("Adding Images"))
-    Tutorial("tutorial_simple_positions", _("Positioning Images"))
-    Tutorial("tutorial_transitions", _("Transitions"))
-    Tutorial("tutorial_music", _("Music and Sound Effects"))
-    Tutorial("tutorial_menus", _("Choices and Python"))
-    Tutorial("tutorial_input", _("Input and Interpolation"))
-    Tutorial("tutorial_video", _("Video Playback"))
-    Tutorial("tutorial_nvlmode", _("NVL Mode"), move=None)
-    Tutorial("director", _("Tools and the Interactive Director"))
-    Tutorial("distribute", _("Building Distributions"))
-
-    Section(_("In Depth"))
-
-    Tutorial("text", _("Text Tags, Escapes, and Interpolation"))
-    Tutorial("demo_character", _("Character Objects"))
-    Tutorial("simple_displayables", _("Simple Displayables"), move=None)
-    Tutorial("demo_transitions", _("Transition Gallery"))
-
-    # Positions and Transforms?
-    Tutorial("tutorial_positions", _("Position Properties"))
-
-    # Advanced Transforms?
-    Tutorial("tutorial_atl", _("Transforms and Animation"))
-    Tutorial("transform_properties", _("Transform Properties"))
-
-    Tutorial("new_gui", _("GUI Customization"))
-    Tutorial("styles", _("Styles and Style Properties"), move=None)
-    Tutorial("tutorial_screens", _("Screen Basics"), move=None)
-    Tutorial("screen_displayables", _("Screen Displayables"), move=None)
-
-    Tutorial("demo_minigame", _("Minigames and CDDs"))
-    Tutorial("translations", _("Translations"))
-
-screen tutorials(adj):
-
+# 3. Membuat Tampilan Layar (Screen) Menu Seleksi
+screen explorers(adj):
     frame:
-        xsize 640
-        xalign .5
-        ysize 485
+        xsize 900
+        xalign 0.65       # Menggeser kotak menu agak ke kanan seperti di gambar
+        ysize 750
         ypos 30
+        background "#000000a0" # Memberikan warna background transparan gelap pada kotak menu
 
         has side "c r b"
 
@@ -144,114 +67,120 @@ screen tutorials(adj):
             draggable True
 
             vbox:
-                for i in tutorials:
-
-                    if i.kind == "tutorial":
-
+                spacing 5
+                for i in explorers:
+                    if i.kind == "explorasi":
                         textbutton i.title:
                             action Return(i)
                             left_padding 20
                             xfill True
-
+                            # Gaya teks tombol agar berwarna abu-abu muda mirip di gambar
+                            text_idle_color "#8899a6" 
+                            text_hover_color "#ffffff"
                     else:
-
                         null height 10
-                        text i.title alt ""
+                        # Judul Section (Mulai Cepat) berwarna putih
+                        text i.title size 24 color "#ffffff" alt ""
                         null height 5
 
         bar adjustment adj style "vscrollbar"
 
-        textbutton _("That's enough for now."):
+        textbutton _("Cukup sekian untuk sekarang."):
             xfill True
             action Return(False)
             top_margin 10
+            text_idle_color "#8899a6"
+            text_hover_color "#ffffff"
 
+# State untuk menyimpan posisi scrollbar agar tidak kembali ke atas
+default explorers_adjustment = ui.adjustment()
+default explorers_first_time = True
 
-# This is used to preserve the state of the scrollbar on the selection
-# screen.
-default tutorials_adjustment = ui.adjustment()
-
-# True if this is the first time through the tutorials.
-default tutorials_first_time = True
-
-# The game starts here.
-#begin start
+# 4. Alur Label Game saat Dijalankan
 label start:
-#end start
 
-    scene bg washington
-    show eileen vhappy
-    with dissolve
+    # Menampilkan latar belakang dan karakter Eileen di sisi kiri
+    # scene bg myroom
+    # show hoshi normal2 at left
+    # with dissolve
 
-    # Start the background music playing.
-    play music "sunflower-slow-drag.ogg"
-
+    # scene bg atapSekolah pagi
     window show
 
-    e "Hi! My name is Eileen, and I'd like to welcome you to the Ren'Py tutorial."
+    scene bg atapSekolah pagi
+    show hoshi senyum
 
-    show eileen happy
+    h "testing1"
 
-    e "In this tutorial, we'll teach you the basics of Ren'Py, so you can make games of your own. We'll also demonstrate many features, so you can see what Ren'Py is capable of."
+    scene bg atapSekolah malam
+    show hoshi malu2
 
-label tutorials:
+    h "testing2"
 
-    show eileen happy at left
+    scene bg roomClass pagi
+    show hoshi marah
+
+    h "testing3"
+
+    scene bg myroom malam
+    show hoshi terkejut
+
+    h "testing4"
+
+    scene bg tanggaSekolah sore
+    show hoshi senyum
+
+    h "testing5"
+
+
+
+
+
+label explorers:
+
+    
+
+    # Eileen menanyakan pertanyaan yang tertera di bagian bawah gambar
+    
+    show hoshi senyum at left
     with move
 
-    if tutorials_first_time:
-        $ e(_("What would you like to see?"), interact=False)
+    if explorers_first_time:
+        $ h(_("Apa yang ingin kamu lihat?"), interact=False)
     else:
-        $ e(_("Is there anything else you'd like to see?"), interact=False)
+        $ h(_("Ada hal lain yang ingin kamu lihat?"), interact=False)
 
-    $ tutorials_first_time = False
+    $ explorers_first_time = False
     $ renpy.choice_for_skipping()
 
-    call screen tutorials(adj=tutorials_adjustment)
+    # Memanggil screen menu tutorial
+    call screen explorers(adj=explorers_adjustment)
 
-    $ tutorial = _return
+    $ explorasi = _return
 
-    if not tutorial:
-        jump end
+    if not explorasi:
+        jump tamat
 
-    if tutorial.move_before:
-        show eileen happy at center
+    if explorasi.move_before:
+        show hoshi senyum at center
         with move
 
     $ reset_example()
 
-    call expression tutorial.label from _call_expression
-
-    if tutorial.move_after:
+    # Menjalankan label explorasi yang dipilih
+    call expression explorasi.label from _call_expression
+    
+    if explorasi.move_after:
         hide example
-        show eileen happy at left
+        show hoshi senyum at left
         with move
 
-    jump tutorials
+    jump explorers
 
-label end:
-
-    show eileen happy at center
+label tamat:
+    show hoshi senyum at center
     with move
-
-    show _finale behind eileen
-
-
-    e "Thank you for viewing this tutorial."
-
-    e "If you'd like to see a full Ren'Py game, select \"The Question\" in the launcher."
-
-    e "You can download new versions of Ren'Py from {a=https://www.renpy.org/}https://www.renpy.org/{/a}. For help and discussion, check out the {a=https://lemmasoft.renai.us/forums/}Lemma Soft Forums{/a}."
-
-    e "We'd like to thank Piroshki for contributing my sprites; Mugenjohncel for Lucy, the band, and drawn backgrounds; and Jake for the magic circle."
-
-    e "The background music is \"Sunflower Slow Drag\", by Scott Joplin and Scott Hayden, performed by the United States Marine Band. The concert music is by Alessio."
-
-    show eileen vhappy
-
-    e "We look forward to seeing what you create with Ren'Py. Have fun!"
+    h "Sampai jumpa lagi!"
 
     window hide
-
-    # Returning from the top level quits the game.
     return
