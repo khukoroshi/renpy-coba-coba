@@ -1,4 +1,4 @@
-﻿# # Kamu dapat taruh script game mu di file ini.
+# # Kamu dapat taruh script game mu di file ini.
 
 # # Deklarasikan gambar di bawah line ini, menggunakan pernyataan image.
 # # cnth. image eileen happy = "eileen_happy.png"
@@ -6,6 +6,8 @@
 # 1. Deklarasi Karakter dan Gambar Latar Belakang
 define h = Character(_('Hoshiko'), color="#C4A484")
 define w = Character(_('Wisteria'), color='#8f00ff')
+
+define creator = "Khukoroshi"
 
 
 init python:
@@ -59,6 +61,7 @@ screen explorers(adj):
         ypos 30
         background "#000000a0" # Memberikan warna background transparan gelap pada kotak menu
 
+
         has side "c r b"
 
         viewport:
@@ -80,7 +83,7 @@ screen explorers(adj):
                     else:
                         null height 10
                         # Judul Section (Mulai Cepat) berwarna putih
-                        text i.title size 24 color "#ffffff" alt ""
+                        text i.title size 30 color "#ffffff" alt ""
                         null height 5
 
         bar adjustment adj style "vscrollbar"
@@ -110,28 +113,19 @@ label start:
     scene bg atapSekolah pagi
     show hoshi senyum
 
-    h "testing1"
+    h "Hai aku Hoshiko, aku akan memandu kamu untuk menelusuri apa yang sudah dipelajari oleh [creator] creator game di ren'py ini."
 
-    scene bg atapSekolah malam
-    show hoshi malu2
+    h "Ini adalah tempat history belajarnya [creator]."
 
-    h "testing2"
+    h "Ini mungkin akan seperti tutorialnya ren'py (dalam segi konsep), tetapi di dalamnya samasekali tidak ada tutorial."
 
-    scene bg roomClass pagi
-    show hoshi marah
+    h "Yah anggap aja dia [creator] ingin belajar dengan gaya yang berbeda."
 
-    h "testing3"
+    show hoshi malu1
 
-    scene bg myroom malam
-    show hoshi terkejut
+    h "Yaa.... Gak tau sih, dia ngomong apa."
 
-    h "testing4"
-
-    scene bg tanggaSekolah sore
-    show hoshi senyum
-
-    h "testing5"
-
+    h "Bahkan semua perkataanku di ketik langsung oleh [creator]."
 
 
 

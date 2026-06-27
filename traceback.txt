@@ -1,0 +1,18 @@
+﻿I'm sorry, but an uncaught exception occurred.
+
+While running game code:
+Exception: Possible infinite loop.
+
+-- Full Traceback ------------------------------------------------------------
+
+Traceback (most recent call last):
+  File "renpy/common/00start.rpy", line 273, in script
+    scene black
+  File "renpy/execution.py", line 74, in check_infinite_loop
+    raise Exception("Possible infinite loop.")
+Exception: Possible infinite loop.
+
+Linux-6.8.0-124-generic-x86_64-with-glibc2.39 x86_64
+Ren'Py 8.5.3.26051504
+Percobaan 0.0.0
+Mon Jun 22 21:24:54 2026
