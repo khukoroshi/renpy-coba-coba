@@ -1,18 +1,30 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-Exception: Possible infinite loop.
+  File "game/script.rpy", line 190, in script
+    $ reset_example()
+  File "game/script.rpy", line 190, in <module>
+    $ reset_example()
+      ^^^^^^^^^^^^^  
+NameError: name 'reset_example' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Traceback (most recent call last):
-  File "renpy/common/00start.rpy", line 273, in script
-    scene black
-  File "renpy/execution.py", line 74, in check_infinite_loop
-    raise Exception("Possible infinite loop.")
-Exception: Possible infinite loop.
+  File "game/script.rpy", line 190, in script
+    $ reset_example()
+  File "renpy/ast.py", line 1193, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "renpy/python.py", line 1276, in py_exec_bytecode
+    exec(bytecode, globals, locals)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "game/script.rpy", line 190, in <module>
+    $ reset_example()
+      ^^^^^^^^^^^^^  
+NameError: name 'reset_example' is not defined
 
 Linux-6.8.0-124-generic-x86_64-with-glibc2.39 x86_64
 Ren'Py 8.5.3.26051504
 Percobaan 0.0.0
-Mon Jun 22 21:24:54 2026
+Sat Jun 27 13:57:44 2026

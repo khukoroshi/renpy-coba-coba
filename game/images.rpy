@@ -1,5 +1,7 @@
 # asset gambar yang ada
 
+image creator = Transform("images/creator2.png", size=(300, 300))
+
 # asset background
 ## my_room
 image bg myroom pagi= "images/room/my_room3.png"

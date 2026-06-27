@@ -7,7 +7,7 @@
 define h = Character(_('Hoshiko'), color="#C4A484")
 define w = Character(_('Wisteria'), color='#8f00ff')
 
-define creator = "Khukoroshi"
+define creator = Character(_("Khukoroshi"), color="#555555")
 
 
 init python:
@@ -45,6 +45,9 @@ init python:
     Explorasi("tutorial_create", _("Membuat Game Baru"))
     Explorasi("tutorial_dialogue", _("Menuliskan Dialog"))
     Explorasi("tutorial_images", _("Menambahkan Gambar"))
+
+    Section(_("Lanjutan"))
+
     Explorasi("tutorial_simple_positions", _("Memposisikan Gambar"))
     Explorasi("tutorial_transitions", _("Transisi"))
     Explorasi("tutorial_music", _("Musik dan Efek Suara"))
@@ -75,7 +78,7 @@ screen explorers(adj):
                     if i.kind == "explorasi":
                         textbutton i.title:
                             action Return(i)
-                            left_padding 20
+                            left_padding 35
                             xfill True
                             # Gaya teks tombol agar berwarna abu-abu muda mirip di gambar
                             text_idle_color "#8899a6" 
@@ -83,7 +86,11 @@ screen explorers(adj):
                     else:
                         null height 10
                         # Judul Section (Mulai Cepat) berwarna putih
-                        text i.title size 30 color "#ffffff" alt ""
+                        text i.title: 
+                            size 30 
+                            color "#ffffff" 
+                            alt ""
+                            xoffset 10
                         null height 5
 
         bar adjustment adj style "vscrollbar"
@@ -92,6 +99,7 @@ screen explorers(adj):
             xfill True
             action Return(False)
             top_margin 10
+            left_margin 17
             text_idle_color "#8899a6"
             text_hover_color "#ffffff"
 
@@ -119,13 +127,33 @@ label start:
 
     h "Ini mungkin akan seperti tutorialnya ren'py (dalam segi konsep), tetapi di dalamnya samasekali tidak ada tutorial."
 
-    h "Yah anggap aja dia [creator] ingin belajar dengan gaya yang berbeda."
+    show hoshi terkejut
+    show creator at right
 
-    show hoshi malu1
+    creator "{i}Yah karna aku ingin belajar dengan gaya yang berbeda.{/i}"
 
-    h "Yaa.... Gak tau sih, dia ngomong apa."
+    hide creator 
 
-    h "Bahkan semua perkataanku di ketik langsung oleh [creator]."
+    h "Woah...., orangnya muncul.{p}Yaa.... Gak tau sih, dia ngomong apa.{p}Dasar orang aneh"
+
+    show creator at right
+
+    creator "{i}Aku mengawasi di balik layar loh, {p}tetap waspada.{/i}"
+
+    hide creator
+    show hoshi marah
+
+    h "Hah...!?, {p}Bukannya semua perkataanku di ketik langsung oleh mu?."
+
+    show creator at right
+
+    creator "he he"
+
+    hide creator
+    show hoshi sedih
+
+    h "Sudah lah."
+
 
 
 

@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 86: 'left_padding' is not a keyword argument or valid child of the text statement.
-    left_padding 10
-                ^
+File "game/script.rpy", line 90: 'xofset' is not a keyword argument or valid child of the text statement.
+    xofset 10
+          ^
 
 Ren'Py Version: Ren'Py 8.5.3.26051504
-Mon Jun 22 10:11:51 2026
+Sat Jun 27 13:50:45 2026
